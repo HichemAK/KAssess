@@ -12,6 +12,7 @@ import os
 import os.path as osp
 import nltk
 import math
+from tqdm import tqdm
 
 from globs import PROJECT_PATH
 from utils import download_and_unzip, load_json
@@ -380,7 +381,7 @@ def get_kaar(fact_res : dict, thresh : int) -> tuple[float, bool]:
 class KaRR:
     def __init__(self, model, tokenizer, device = 'cuda', thresh=22) -> None:
         self.model_name = model.config.name_or_path
-        self.model, self.tokenizer = load_model(self.model_name, device)
+        self.model, self.tokenizer = model, tokenizer
         self.device = device
         self.model_name_replaced = self.model_name.replace('/', '_')
         self.stopwords = stopwords.words('english')
